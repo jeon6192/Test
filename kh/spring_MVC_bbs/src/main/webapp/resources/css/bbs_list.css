@@ -1,0 +1,174 @@
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.ul_list {
+	border: 1px solid #c7c7c7;
+	border-radius: 5px;
+	width: 80%;
+	list-style: none;
+	margin: 0 auto;
+	margin-top: 5%;
+	padding: 20px 10px;
+	box-shadow: 0 0 13px rgba(33, 33, 33, 0.3);
+	box-sizing: border-box;
+}
+
+.ul_list li {
+	text-align: center;
+	width: 100%;
+}
+
+.ul_list li div {
+	display: inline-block;
+	box-sizing: border-box;
+}
+
+.div_body {
+	width: 100%;
+	height: 60px;
+	padding-top: 1em;
+	border-bottom: 1px solid #efefef;
+}
+
+.div_body div {
+	float: left;
+}
+
+.li_title {
+	height: 50px;
+	line-height: 50px;
+	font-weight: bold;
+}
+
+.li_title2 {
+	height: 35px;
+	line-height: 35px;
+	background-color: #efefef;
+	border: 1px solid #d7d7d7;
+	border-radius: 5px;
+}
+
+.li_title2 div {
+	float: left;
+}
+
+.li_body {
+	height: 630px;
+	border: 1px solid #d7d7d7;
+	border-radius: 5px;
+}
+
+.div_body div {
+	display: inline-block;
+	height: 100%;
+	font-size: 11pt;
+}
+
+.div_bbsName {
+	width: 65%;
+}
+
+.div_bbsCount {
+	width: 34%;
+}
+
+.div_num {
+	width: 8%;
+}
+
+.div_subject {
+	width: 49%;
+}
+
+.img_arrow{
+	width: 12pt;
+	height: 12pt;
+}
+
+.div_writer {
+	width: 15%;
+}
+
+.div_date {
+	width: 15%;
+}
+
+.div_readCount {
+	width: 11%
+}
+
+.li_page {
+	height: 30px;
+	line-height: 30px;
+	background-color: #efefef;
+	border-radius: 5px;
+	border: 1px solid #d7d7d7;
+}
+
+.li_bottom2 {
+	height: 40px;
+	text-align: right !important;
+	line-height: 40px;
+}
+
+.div_page {
+	width: 100%;
+}
+
+.div_bbsWrite {
+	width: 100%;
+	padding-right: 5px;
+	position: relative;
+}
+.div_search{
+    position: absolute;
+    width: 360px;
+    height: 100%;
+    left: 0;
+}
+.btn_write, .btn_search{
+	width: 80px;
+	height: 25px;
+	padding: 0.1em 0.5em;
+	color: black;
+	border: 1px solid black;
+	background-color: white;
+	transition: all 0.6s;
+	font-weight: bold;
+}
+.btn_write:hover, .btn_search:hover{
+	color: white;
+	background-color: black;
+}
+.sel_search, .input_search{
+	border: 1px solid black;
+	border-radius: 3px;
+    outline: 0;
+}
+.sel_search{
+	height: 25px;
+}
+.input_search{
+	height: 21px;
+    position: relative;
+    top: -1px;
+    z-index: 10;
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid black;
+}
+.div_shadow{
+	ackground-color: #0000003b;
+    height: 5px;
+    width: 167px;
+    margin-left: -40px;
+    position: absolute;
+    bottom: 7px;
+    left: 40.5%;
+    z-index: 5;
+    -webkit-box-shadow: 0px 2px 4px #000000;
+    -moz-box-shadow: 0px 2px 4px #000000;
+    box-shadow: 0px 2px 4px #000000;
+}

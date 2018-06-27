@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- destroy-method 속성은 컨테이너가 객체를 삭제하기 직전에 호출됨 -->
+	<bean id="p1" class="com.naver.myhome3.sample1.FileOutputter" destroy-method="destroyMethod">
+		<property name="filePath">
+			<value>out.txt</value>
+		</property>
+	</bean>
+	
+	<!-- init-method 속성은 컨테이너가 객체를 생성한 후 호출됨 -->
+	<bean id="m3" class="com.naver.myhome3.sample1.MessageBeanImpl" init-method="initMethod">
+		<constructor-arg>
+			<value>Spring</value>
+		</constructor-arg>
+
+		<property name="greeting">
+			<value>안녕하세요!</value>
+		</property>
+
+		<property name="outputter" ref="p1" />
+	</bean>
+</beans>

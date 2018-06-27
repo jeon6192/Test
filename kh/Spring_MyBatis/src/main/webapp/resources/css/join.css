@@ -1,0 +1,22 @@
+input{border: 2px solid #41e124; border-radius: 5px;}
+fieldset{border: 0;}
+legend{text-align: center; background-color: #e0e0e0; border-radius: 5px; font-family: koverwatch; font-size: xx-large;}
+form{width:430px; height:360px;margin: 0 auto; border: 2px dotted #e0e0e0; padding: 20px;}
+form:hover{border: 2px dotted #fff176;}
+label{margin: 0 10px 0 10px; color:blue;display:inline-block; width:110px; font-weight: bold;}
+input[type=text],input[type=password]{width:250px;}
+#id{width: 170px;}
+#idcheck{width: 80px; background-color: #ffeb3b; border: 0}
+#email,#domain{width:85px;}
+#sel{width:80px; border: 2px solid #41e124; border-radius: 5px; padding-top: 1px;}
+span{display: inline-block; width: 250px; border: 2px solid #41e124; border-radius: 5px; font-size: 10pt; text-align: center;}
+input[type=submit]{background-color:green; color:white; margin-left: 50px; border:green; width:150px;height:30px; font-family: koverwatch;}
+input[type=reset]{background-color:red; color:white; border:red;width:150px;height:30px; font-family: koverwatch;}
+legend{font-weight: bold; color: #9441ff}
+input[type=text]:hover,input[type=password]:hover{background: aquamarine}
+.id_ajax{
+	width: 40%;
+	height: 20px;
+	margin: 0 auto;
+	font-size: 9pt;
+}

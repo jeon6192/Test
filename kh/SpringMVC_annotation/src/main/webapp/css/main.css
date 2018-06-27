@@ -1,0 +1,129 @@
+.main{
+	width: 70%;
+	min-width: 500px;
+	min-height: 500px;
+	margin: 0 auto;
+	border: 1px solid gray;
+	box-shadow: 0 0 10px #ffc9c9;
+	text-align: center;
+	padding: 3em 1em;
+	box-sizing: border-box;
+	clear: right;
+}
+.header{
+	width: 35%;
+    height: 35px;
+    margin-bottom: 30px;
+    float: right;
+    text-align: center;
+}
+.top_div{
+	width: 100%;
+	font-weight: bold;
+	font-size: 25pt;
+}
+.btn{
+	border: 2px solid #4fdc5f;
+	background-color: white;
+	transition: 500ms ease all;
+    padding: 0.3em 0.5em;
+    font-weight: bold;
+}
+.btn:hover{
+	background-color: #4fdc5f;
+	color: white;
+}
+#logout_btn{
+	maring-right: 50px
+}
+.main_div{
+	width: 100%;
+	height: 70%;
+}
+.list_ul{
+	list-style: none;
+	border: 1px solid #d7d7d7;
+	border-radius: 10px;
+	padding: 0px;
+}
+.list_li_head{
+	border-bottom: 1px solid #d7d7d7;
+	height: 35px;
+	font-weight: bold;
+	line-height: 35px;
+}
+.list_li_head div{
+	float: left;
+}
+.list_ul li div{
+	display: inline-block;
+	height: 100%;
+}
+.list_li{
+	height: 30px;
+	line-height: 30px;
+}
+.id_div{
+	width: 39%;
+}
+.password_div{
+	width: 39%;
+}
+.btn_div{
+	width: 20%;
+}
+.btn_div button{
+	border: 1px solid #4fdc5f;
+	background-color: white;
+	transition: 500ms ease all;
+    padding: 0.2em 0.6em;
+    margin-right: 5px;
+    font-size: 0.7em;
+    font-weight: bold;
+}
+.btn_div button:hover{
+	background-color: #4fdc5f;
+	color: white;
+}
+.update_div{
+	width: 100%;
+	height: 30%;
+}
+.update_id{
+	width: 100%;
+}
+.b_div{
+	width: 45%;
+	display: inline-block;
+	padding: 0em 1em; 
+	text-align: right;
+	box-sizing: border-box;
+}
+.input_div{
+	width: 54%;
+	display: inline-block;
+	padding: 0em 1em; 
+	text-align: left;
+	box-sizing: border-box;
+}
+.input_div input{
+	border: 1px solid #d7d7d7;
+	border-radius: 5px;
+}
+.update_password{
+	width: 100%;
+}
+.clearfix{
+	margin-top: 10px;
+}
+.clearfix button{
+	border: 2px solid #4fdc5f;
+	background-color: white;
+	transition: 500ms ease all;
+    padding: 0.1em 0.5em;
+    font-weight: bold;
+}
+.clearfix button:hover{
+	background-color: #4fdc5f;
+	color: white;
+}
