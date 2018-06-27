@@ -1,0 +1,8 @@
+body{background-size: 100% 800px; background-repeat: no-repeat; background-image: url('/Board/image/images.jpg');}
+form{ width: 440px; height: 120px; margin: 0 auto; margin-top: 100px; border: 1px solid #29434e; padding-top: 20px;}
+form:hover{background-color: rgba(185,245,202,0.4);}
+input{margin-top: 10px; }
+label{display:inline-block; width:110px; margin-left: 20px; font-weight: bold; color: #ff3d00;}
+input[type=text]:hover,input[type=password]:hover{background: #13E800;}
+input[type=submit]{background: #2bbd7e; border: 0px; margin-left: 160px; width: 100px; font-weight: bold; margin-top: 20px;}
+input[type=submit]:hover{background: #88c399;}

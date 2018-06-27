@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+org.eclipse.wst.jsdt.core.codeComplete.visibilityCheck=enabled
+org.eclipse.wst.jsdt.core.formatter.insert_space_after_function_keyword=insert
+org.eclipse.wst.jsdt.core.formatter.tabulation.char=space
