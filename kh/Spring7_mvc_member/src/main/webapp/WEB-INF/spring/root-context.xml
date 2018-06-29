@@ -15,7 +15,7 @@
     
    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSession">
          <property ref="dataSource" name="dataSource"/>
-         <property name="configLocation" value="classpath:util/sqlMapConfig_max.xml"/> 
+         <property name="configLocation" value="classpath:util/SqlMapConfig.xml"/> 
          
     </bean>
     

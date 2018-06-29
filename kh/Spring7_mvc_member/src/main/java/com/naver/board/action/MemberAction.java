@@ -1,43 +1,44 @@
 package com.naver.board.action;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.naver.board.dao.MemberDAOImpl;
 import com.naver.board.dao.MemberService;
-import com.naver.board.model.MemberBean;
 
 @Controller
 public class MemberAction {
 	@Autowired
 	private MemberService memberService;
 	
-	private String saveFolder = "D:\\spring_workspace2\\Spring7_mvc_member\\src\\main\\webapp\\resources\\upload";
+	private String saveFolder = "C:\\Users\\user1\\git\\Test3\\kh\\Spring7_mvc_member";
 	
-	@RequestMapping(value = "/login.net")
+	@RequestMapping(value = "/member_login.nhn")
 	public String login() {
-		return "member/loginForm";
+		return "member/member_login";
 	}
 
 	
-	@RequestMapping(value = "/join.net")
+	@RequestMapping(value = "/member_join.nhn")
 	public String join() {
-		return "member/joinForm";
+		return "member/member_join";
 	}
 	
 		
+	@RequestMapping(value = "/checkMemberId.nhn")
+	public void checkMemberId(@RequestParam("join_id") String id, 
+			HttpServletResponse response) throws Exception {
+		int result = memberService.checkMemberId(id);
+		
+		if (result == 0) {
+			response.getWriter().print(0);
+		} else {
+			response.getWriter().print(1);
+		}
+		
+	}
+	
 }

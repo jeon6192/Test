@@ -14,28 +14,10 @@ public class MemberDAOImpl {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 
-	/* ȸ�� ���� */
-	public int insert(MemberBean m) throws Exception {
-		return sqlSession.insert("insert", m);
-	}
-
-	// Member ����
-	public void delete(String id) throws Exception {
-		sqlSession.delete("Members.delete", id);
-	}
-
-	// Member ����
-	public int update(MemberBean m) throws Exception {
-		return sqlSession.update("Members.update", m);
-	}
-
-	public List<MemberBean> getList() throws Exception {
-		return sqlSession.selectList("getList");
-	}
-
-	// Member ���� ���ϱ�
-	public MemberBean getInfo(String id) throws Exception {
-		return sqlSession.selectOne("idcheck", id);
+	
+	public int checkMemberId(String id) throws Exception {
+		int result = sqlSession.selectOne("Test.idcheck", id);
+		return result;
 	}
 
 }

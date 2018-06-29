@@ -17,8 +17,9 @@ public class MemberServiceImple implements MemberService {
 
 	@Override
 	public int checkMemberId(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = dao.checkMemberId(id);
+		
+		return result;
 	}
 
 	@Override
