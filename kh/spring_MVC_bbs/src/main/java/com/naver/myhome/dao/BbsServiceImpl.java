@@ -36,8 +36,8 @@ public class BbsServiceImpl implements BbsService{
 	}
 
 	@Override
-	public List<BbsBean> getBbsList(int page) throws Exception {
-		List<BbsBean> bbsBeanList = bbsDAO.board_list(page);
+	public List<BbsBean> getBbsList(int page, int limit) throws Exception {
+		List<BbsBean> bbsBeanList = bbsDAO.board_list(page, limit);
 		
 		return bbsBeanList;
 	}

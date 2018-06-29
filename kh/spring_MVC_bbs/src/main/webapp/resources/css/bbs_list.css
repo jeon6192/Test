@@ -1,8 +1,3 @@
-a {
-	text-decoration: none;
-	color: black;
-}
-
 .ul_list {
 	border: 1px solid #c7c7c7;
 	border-radius: 5px;
@@ -27,8 +22,9 @@ a {
 
 .div_body {
 	width: 100%;
-	height: 60px;
-	padding-top: 1em;
+	height: 55px;
+    padding-top: 1.3em;
+    font-size: 11pt;
 	border-bottom: 1px solid #efefef;
 }
 
@@ -49,13 +45,12 @@ a {
 	border: 1px solid #d7d7d7;
 	border-radius: 5px;
 }
-
 .li_title2 div {
 	float: left;
 }
 
 .li_body {
-	height: 630px;
+	font-size: 0;
 	border: 1px solid #d7d7d7;
 	border-radius: 5px;
 }
@@ -66,12 +61,23 @@ a {
 	font-size: 11pt;
 }
 
+.div_limit{
+	width: 15%;
+}
+.sel_limit{
+	width: 90%;
+	border: 1px solid #d7d7d7;
+}
 .div_bbsName {
-	width: 65%;
+	width: 54%;
+	font-size: 19pt;
+	cursor: pointer;
 }
 
 .div_bbsCount {
-	width: 34%;
+	width: 29%;
+	font-size: 9pt;
+	color: gray;
 }
 
 .div_num {
@@ -105,6 +111,11 @@ a {
 	background-color: #efefef;
 	border-radius: 5px;
 	border: 1px solid #d7d7d7;
+}
+
+.span_page{
+	color: blue;
+	font-weight: bold;
 }
 
 .li_bottom2 {
@@ -165,7 +176,7 @@ a {
     width: 167px;
     margin-left: -40px;
     position: absolute;
-    bottom: 7px;
+    bottom: -7px;
     left: 40.5%;
     z-index: 5;
     -webkit-box-shadow: 0px 2px 4px #000000;

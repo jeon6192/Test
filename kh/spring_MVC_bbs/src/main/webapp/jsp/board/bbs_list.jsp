@@ -1,40 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
 <html>
 	<head>
 		<title>MVC 게시판</title>
 		<link href="./resources/css/bbs_list.css" rel="stylesheet" type="text/css">
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script>
-			$(document).ready(function(){
-			   $('.btn_write').click(function(){
-			       location.href='./bbs_write.nhn';
-			   });
-			});
-			
-			function search(){
-			    var item = $('.sel_search').val();
-			    var keyword = $('.input_search').val();
-			    
-			    if (item == 0){
-			        alert('검색조건을 선택해주세요!');
-			    } else {
-			        location.href = './bbs_list.nhn?item=' + item + '&keyword=' + keyword;
-			    }
-			}
-			
-		</script>
+		<script src="./resources/js/bbs_list.js"></script>
 		
 	</head>
 	<body>
+		<ul class="ul_list">
 		<c:set var="p" value="${pageMap}"/>
 		<c:set var="s" value="${searchMap}"/>
-		<ul class="ul_list">
 			<c:if test="${p.listCount>=1}">
 				<li class="li_title">
-					<div class="div_bbsName">MVC 게시판 - list</div>
+					<div class="div_limit">
+						<select class="sel_limit">
+							<option value="3">3줄 보기</option>
+							<option value="5">5줄 보기</option>
+							<option value="7">7줄 보기</option>
+							<option value="10">10줄 보기</option>
+						</select>
+					</div>
+					<div class="div_bbsName">게시판</div>
 					<div class="div_bbsCount">글 개수 : ${p.listCount }</div>
 				</li>
 				<li class="li_title2">
@@ -46,7 +35,7 @@
 				</li>
 				
 				
-				<c:set var="num" value="${p.listCount-(p.page-1)*10 }"/>
+				<c:set var="num" value="${p.listCount-(p.page-1)*p.limit }"/>
 				<li class="li_body">
 					<c:forEach var="bbs" items="${bbsBeanList }">
 						<div class="div_body">
@@ -81,15 +70,15 @@
 							이전&nbsp;
 						</c:if>
 						<c:if test="${p.page>1 }">
-							<a href="./bbs_list.nhn?page=${p.page-1}&item=${s.item}&keyword=${s.keyword}">이전</a>&nbsp;
+							<a href="./bbs_list.nhn?page=${p.page-1}&item=${s.item}&keyword=${s.keyword}&limit=${p.limit}">이전</a>&nbsp;
 						</c:if>
 						
 						<c:forEach var="a" begin="${p.startPage }" end="${p.endPage }">
 							<c:if test="${a==p.page }">
-								${a }
+								<span class="span_page">${a}</span>
 							</c:if>
 							<c:if test="${a!=p.page }">
-								<a href="./bbs_list.nhn?page=${a}&item=${s.item}&keyword=${s.keyword}">${a }</a>
+								<a href="./bbs_list.nhn?page=${a}&item=${s.item}&keyword=${s.keyword}&limit=${p.limit}">${a }</a>
 							</c:if>
 						</c:forEach>
 						
@@ -97,10 +86,14 @@
 							&nbsp;다음
 						</c:if>
 						<c:if test="${p.page<p.maxPage }">
-							&nbsp;<a href="./bbs_list.nhn?page=${p.page+1}&item=${s.item}&keyword=${s.keyword}">다음</a>
+							&nbsp;<a href="./bbs_list.nhn?page=${p.page+1}&item=${s.item}&keyword=${s.keyword}&limit=${p.limit}">다음</a>
 						</c:if>
 						
 					</div>
+					<input type="hidden" class="page" value="${p.page}">
+					<input type="hidden" class="item" value="${s.item}">
+					<input type="hidden" class="keyword" value="${s.keyword}">
+					<input type="hidden" class="limit" value="${p.limit}">
 				</li>
 				
 			</c:if>

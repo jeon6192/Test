@@ -39,10 +39,10 @@ public class BbsDAOImpl{
 		return result;
 	}
 	
-	public List<BbsBean> board_list(int page) {
+	public List<BbsBean> board_list(int page, int limit) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		int startrow = (page - 1) * 10 + 1;
-		int endrow = startrow + 10 - 1;
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
 
 		map.put("startrow", startrow);
 		map.put("endrow", endrow);
@@ -90,12 +90,14 @@ public class BbsDAOImpl{
 	}
 	
 	public List<BbsBean> board_list3(Map<String, Object> m) {
-		int startrow = (Integer.parseInt(m.get("page").toString()) - 1) * 10 + 1;
-		int endrow = startrow + 10 - 1;
+		int page = Integer.parseInt(m.get("page").toString());
+		int limit = Integer.parseInt(m.get("limit").toString());
+		int startrow = (page - 1) * limit + 1;
+		int endrow = startrow + limit - 1;
 
 		m.put("startrow", startrow);
 		m.put("endrow", endrow);
-		
+		System.out.println(" ");
 		List<BbsBean> bbsBeanList = sqlSession.selectList("Bbs.getSearchList", m);
 		
 		return bbsBeanList;

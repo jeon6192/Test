@@ -18,9 +18,26 @@
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="jsp/" />
-		<beans:property name="suffix" value=".jsp" />
+		<beans:property name="suffix" value="" />
 	</beans:bean>
 	
 	<context:component-scan base-package="com.naver.myhome" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/*.nhn"/>
+			<beans:bean class="com.naver.myhome.interceptor.Interceptor_pre"/>
+		</interceptor>
+		
+	</interceptors>
+	
+	<!-- 
+		* : 0개 또는 그 이상의 글자
+		? : 1개 글자
+		** : 0개 또는 그 이상의 경로
+		
+		/member/**/file
+		
+	 -->
 	
 </beans:beans>

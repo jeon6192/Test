@@ -69,16 +69,16 @@
 		select count(*) from bbs6 
 			<where>
 				<choose>
-					<when test="#{item eq 1}">
+					<when test="item == 1">
 						bbs_subject like '%'||#{keyword}||'%'
 					</when>
-					<when test="#{item eq 2}">
+					<when test="item == 2">
 						bbs_content like '%'||#{keyword}||'%'
 					</when>
-					<when test="#{item eq 3}">
+					<when test="item == 3">
 						bbs_name like '%'||#{keyword}||'%'
 					</when>
-					<when test="#{item eq 4}">
+					<when test="item == 4">
 						bbs_subject like '%'||#{keyword}||'%' or 
 						bbs_content like '%'||#{keyword}||'%'
 					</when> 
@@ -94,16 +94,16 @@
 			(select * from bbs6 order by bbs_re_ref desc, bbs_re_seq asc) 
 			<where>
 				<choose>
-					<when test="#{item eq 1}">
+					<when test="item == 1">
 						bbs_subject like '%'||#{keyword}||'%'
 					</when>
-					<when test="#{item eq 2}">
+					<when test="item == 2">
 						bbs_content like '%'||#{keyword}||'%'
 					</when>
-					<when test="#{item eq 3}">
+					<when test="item == 3">
 						bbs_name like '%'||#{keyword}||'%'
 					</when>
-					<when test="#{item eq 4}">
+					<when test="item == 4">
 						bbs_subject like '%'||#{keyword}||'%' or 
 						bbs_content like '%'||#{keyword}||'%'
 					</when>

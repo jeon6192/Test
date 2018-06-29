@@ -21,3 +21,13 @@ create sequence bbs6_num_seq
 increment by 1 start with 1
 
 drop sequence bbs6_num_seq
+
+select * from 
+			(select rownum rnum, bbs_num, bbs_name, bbs_pass, bbs_subject, 
+       			bbs_content, bbs_file, bbs_re_ref, bbs_re_lev, 
+       			bbs_re_seq, bbs_readcount, bbs_date, bbs_original from 
+			(select * from bbs6 order by bbs_re_ref desc, bbs_re_seq asc) 
+			where bbs_subject like '%2%')
+			where rnum >= 11 and rnum <= 20
+			
+select * from member;

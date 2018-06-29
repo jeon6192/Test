@@ -1,97 +1,66 @@
 package com.naver.myhome.controller;
 
-import java.io.File;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.io.PrintWriter;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.naver.myhome.dao.BbsService;
-import com.naver.myhome.model.BbsBean;
+import com.naver.myhome.dao.MemberService;
+import com.naver.myhome.model.MemberBean;
 
 @Controller
-public class BbsAction2 {
+public class MemberAction {
 	
 	@Autowired
-	private BbsService bbsService;
+	private MemberService memberService;
 	
-	private String saveFolder = "D:\\spring_workspace\\spring_MVC_bbs\\src\\main\\webapp\\resources\\upload";
-	
-	@RequestMapping(value="/header")
-	public String header() {
-		return "header";
+	@RequestMapping(value="/main.me")
+	public String main() {
+		return "template.jsp?temp_page=main.jsp";
 	}
 	
-	/* 자료실 입력폼 */
-	@RequestMapping(value="/bbs_write.nhn")
-	public String bbs_write() {
-		return "template.jsp?temp_page=board/bbs_write.jsp";	//bbs폴더의 bbs_write.jsp 뷰 페이지가 실행
-	}
-	
-	@RequestMapping(value="/bbs_write_ok.nhn", method=RequestMethod.POST)
-	public ModelAndView bbs_write_ok(BbsBean bbsBean) throws Exception{
-		ModelAndView mav = new ModelAndView("redirect:/bbs_list.nhn");
-		MultipartFile uploadFile = bbsBean.getUploadfile();
+	@RequestMapping(value="/login.me")
+	public void login(MemberBean memberBean, HttpServletResponse response) throws Exception {
+		MemberBean memberBeanDB = memberService.idCheck(memberBean.getId());
+		PrintWriter out = response.getWriter();
 		
-		if(!uploadFile.isEmpty()) {
-			String fileName = uploadFile.getOriginalFilename();
-			
-			bbsBean.setBbs_original(fileName);
-			
-			Calendar c = Calendar.getInstance();
-			int year = c.get(Calendar.YEAR);
-			int month = c.get(Calendar.MONTH) + 1;
-			int date = c.get(Calendar.DATE);
-			String homeDir = saveFolder + "/" + year + "-" + month + "-" + date;
-			
-			File path1 = new File(homeDir);
-			
-			if(!(path1.exists())) {
-				System.out.println("폴더 생성");
-				path1.mkdirs();
-			}
-			
-			Random r = new Random();
-			int random = r.nextInt(100000000);
-			
-			int index = fileName.lastIndexOf(".");
-			String fileExtension = fileName.substring(index + 1);
-			
-			System.out.println("fileExtension : " + fileExtension);
-			
-			// 새로운 파일명 지정
-			String reFileName = "bbs" + year + month + date + random + "." + fileExtension;
-			
-			String fileDBName = "/" + year + "-" + month + "-" + date + "/" + reFileName;
-			
-			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장
-			uploadFile.transferTo(new File(saveFolder + fileDBName));
-			// 바뀐파일명으로 저장
-			bbsBean.setBbs_file(fileDBName);
+		if (memberBeanDB == null) {
+			out.print(-1); // ID 없을때
+			return;
 		}
 		
-		this.bbsService.insertBbs(bbsBean);
+		String inputPass  = memberBean.getPassword();
+		String pass = memberBeanDB.getPassword();
 		
-		return mav;
+		if (inputPass.equals(pass)) {
+			out.print(1);
+		} else {
+			out.print(0);
+		}
 	}
 	
 	
+	@RequestMapping(value="/login_ok.me")
+	public void login_ok(@RequestParam("inputId") String id, HttpSession session, HttpServletResponse response) throws Exception{
+		System.out.println(id);
+		session.setAttribute("id", id);
+		response.getWriter().print("<script>history.back();</script>");
+	}
+	
+	
+	@RequestMapping(value="/logout.me", method=RequestMethod.GET)
+	public void logout(HttpServletResponse response, HttpSession session) throws Exception{
+		session.invalidate();
+		response.getWriter().print("<script>history.back();</script>");
+	}
+	
+	/*
 	@RequestMapping(value = "/bbs_list.nhn")
 	public ModelAndView bbs_list(@RequestParam(value="page", defaultValue="1") int page, 
 			@RequestParam(value="item", defaultValue="0") int item, 
@@ -106,13 +75,13 @@ public class BbsAction2 {
 		int listCount = 0;
 		int limit = 10;
 		
-		/*HttpSession session=request.getSession();
+		HttpSession session=request.getSession();
 		if(session.getAttribute("limit")!=null) {
 			limit=Integer.parseInt(session.getAttribute("limit").toString());
-		}*/	
+		}	
 		if(request.getParameter("limit")!=null) {
 			limit=Integer.parseInt(request.getParameter("limit"));
-			/*session.setAttribute("limit", limit);*/
+			session.setAttribute("limit", limit);
 			System.out.println("limit : "+limit);
 		}
 		
@@ -337,5 +306,5 @@ public class BbsAction2 {
 		response.getOutputStream().flush();
 		response.getOutputStream().close();
 		
-	}
+	}*/
 }

@@ -6,7 +6,8 @@
 
 	<typeAliases>
 		 <typeAlias alias="bbs" 
-		            type="com.naver.myhome.model.BbsBean" />	
+		            type="com.naver.myhome.model.BbsBean" />
+		<typeAlias alias="M" type="com.naver.myhome.model.MemberBean"/>
 	</typeAliases>
 
 	<!-- <environments default="development">
@@ -23,6 +24,7 @@
 
 	<mappers>
 		<mapper resource="sql/bbs.xml" />
+		<mapper resource="sql/member.xml"/>
 	</mappers>
 
 </configuration>
