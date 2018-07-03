@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -57,8 +58,7 @@ public class MemberAction {
 	
 	
 	@RequestMapping(value = "/member_join_ok.nhn", method=RequestMethod.POST)
-	public ModelAndView member_join_ok(MemberBean memberBean, 
-			HttpServletResponse response) throws Exception{
+	public ModelAndView member_join_ok(MemberBean memberBean) throws Exception{
 		ModelAndView mav = new ModelAndView("redirect:/member_login.nhn");
 		String join_tel = memberBean.getJoin_tel1() + "-" + memberBean.getJoin_tel2() + "-" + memberBean.getJoin_tel3();
 		String join_phone = memberBean.getJoin_phone1() + "-" + memberBean.getJoin_phone2() + "-" + memberBean.getJoin_phone3();
@@ -108,7 +108,6 @@ public class MemberAction {
 		}
 		
 		this.memberService.insertMember(memberBean);
-		response.getWriter().print("<script>alert('가입 성공');</script>");
 		
 		return mav;
 	}
@@ -228,4 +227,136 @@ public class MemberAction {
 		
 		return mav;
 	}
+	
+	
+	@RequestMapping(value = "/member_update.nhn")
+	public ModelAndView member_modify(HttpServletRequest request) throws Exception{
+		HttpSession session = request.getSession();
+		
+		ModelAndView mav = new ModelAndView("template");
+		mav.addObject("viewName", "member/member_modify");
+		
+		String id = session.getAttribute("id").toString();
+		MemberBean memberBean = memberService.userCheck(id);
+		
+		String join_tel = memberBean.getJoin_tel();
+		
+		StringTokenizer st01 = new StringTokenizer(join_tel, "-");
+		String join_tel1 = st01.nextToken();
+		String join_tel2 = st01.nextToken();
+		String join_tel3 = st01.nextToken();
+		
+		String join_phone = memberBean.getJoin_phone();
+		
+		StringTokenizer st02 = new StringTokenizer(join_phone, "-");
+		String join_phone1 = st02.nextToken();
+		String join_phone2 = st02.nextToken();
+		String join_phone3 = st02.nextToken();
+		
+		String join_email = memberBean.getJoin_email();
+		
+		StringTokenizer st03 = new StringTokenizer(join_email, "@");
+		String join_mailid = st03.nextToken();
+		String join_maildomain = st03.nextToken();
+		
+		memberBean.setJoin_tel1(join_tel1);
+		memberBean.setJoin_tel3(join_tel2);
+		memberBean.setJoin_tel2(join_tel3);
+		memberBean.setJoin_phone1(join_phone1);
+		memberBean.setJoin_phone2(join_phone2);
+		memberBean.setJoin_phone3(join_phone3);
+		memberBean.setJoin_mailid(join_mailid);
+		memberBean.setJoin_maildomain(join_maildomain);
+		
+		mav.addObject("memberBean", memberBean);
+		
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/member_update_ok.nhn")
+	public ModelAndView board_update_ok(MemberBean memberBean, 
+			HttpServletRequest request) throws Exception{
+		ModelAndView mav = new ModelAndView("redirect:/member_login.nhn");
+		String join_tel = memberBean.getJoin_tel1() + "-" + memberBean.getJoin_tel2() + "-" + memberBean.getJoin_tel3();
+		String join_phone = memberBean.getJoin_phone1() + "-" + memberBean.getJoin_phone2() + "-" + memberBean.getJoin_phone3();
+		String join_email = memberBean.getJoin_mailid() + "@" + memberBean.getJoin_maildomain();
+		String id = memberBean.getJoin_id();
+		
+		memberBean.setJoin_tel(join_tel);
+		memberBean.setJoin_phone(join_phone);
+		memberBean.setJoin_email(join_email);
+		
+		
+		MultipartFile uploadFile = memberBean.getJoin_profile();
+		MemberBean memberBeanDB = memberService.userCheck(id);
+		String chk = request.getParameter("profile");
+		System.out.println("chk : "+chk);
+		
+		if(!uploadFile.isEmpty()) {
+			File delFile = new File(saveFolder + memberBeanDB.getJoin_file());
+			if(delFile.exists()) {
+				delFile.delete();
+			}
+			
+			String fileName = uploadFile.getOriginalFilename();
+			memberBean.setJoin_original(fileName);
+			
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH) + 1;
+			int date = c.get(Calendar.DATE);
+			String homeDir = saveFolder + "/" + year + "-" + month + "-" + date;
+			
+			File path1 = new File(homeDir);
+			
+			if(!(path1.exists())) {
+				System.out.println("폴더 생성");
+				path1.mkdirs();
+			}
+			
+			Random r = new Random();
+			int random = r.nextInt(100000000);
+			
+			int index = fileName.lastIndexOf(".");
+			String fileExtension = fileName.substring(index + 1);
+			
+			System.out.println("fileExtension : " + fileExtension);
+			
+			// 새로운 파일명 지정
+			String reFileName = "member" + year + month + date + random + "." + fileExtension;
+			
+			String fileDBName = "/" + year + "-" + month + "-" + date + "/" + reFileName;
+			System.out.println("fileDBName : "+fileDBName);
+			
+			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장
+			uploadFile.transferTo(new File(saveFolder + fileDBName));
+			// 바뀐파일명으로 저장
+			memberBean.setJoin_file(fileDBName);
+		} else if(uploadFile.isEmpty() && memberBeanDB.getJoin_file() != null && !chk.equals("")) {
+			memberBean.setJoin_file(memberBeanDB.getJoin_file());
+			memberBean.setJoin_original(memberBeanDB.getJoin_original());
+		}
+				
+		memberService.updateMember(memberBean);
+		request.getSession().setAttribute("join_name", memberBean.getJoin_name());
+		request.getSession().setAttribute("join_file", memberBean.getJoin_file());
+		
+		return mav;
+	}
+	
+	@RequestMapping(value = "/member_delete.nhn")
+	public ModelAndView member_del(HttpSession session, 
+			HttpServletResponse response) throws Exception {
+		String id = session.getAttribute("id").toString();
+		MemberBean memberBean = memberService.userCheck(id);
+		ModelAndView mav = new ModelAndView("member/member_del");
+		
+		mav.addObject("d_id", id);
+		mav.addObject("d_name", memberBean.getJoin_name());
+		
+		return mav;
+	}
+	
+	
 }

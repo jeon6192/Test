@@ -24,7 +24,7 @@ create table join_member2(
 create sequence join_member_joincode_seq 
 increment by 1 start with 1 nocache;
 
---drop sequence join_member_joincode_seq; 
+drop sequence join_member_joincode_seq; 
 
 select * from join_member2;
 

@@ -49,7 +49,7 @@ public class MemberServiceImple implements MemberService {
 
 	@Override
 	public void updateMember(MemberBean member) throws Exception {
-		// TODO Auto-generated method stub
+		dao.updateMember(member);
 		
 	}
 

@@ -27,6 +27,12 @@
 	
 	<context:component-scan base-package="com.naver.board" />
 	
-	
+	<interceptors>
+		<interceptor>
+			<mapping path="/member_update.nhn"/>
+			<mapping path="/member_delete.nhn"/>
+			<beans:bean class="com.naver.myhome.interceptor.Interceptor_pre"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

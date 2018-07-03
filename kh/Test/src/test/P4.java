@@ -24,32 +24,5 @@ public class P4 {
 			}
 			
 		}*/
-		P4 p4 = new P4();
-		p4.init();
-		System.out.println(p4.sum());
-		p4.sum();
-		System.out.println(p4.avg());
-		p4.display();
-	}
-	private int[] arr = new int[5];
-	public void init() {
-		for(int i =0; i<arr.length; i++) {
-			arr[i] = new Random().nextInt(101);
-		}
-	}
-	public int sum() {
-		int sum = 0;
-		for(int i : arr) {
-			sum += i;
-		}
-		return sum;
-	}
-	public double avg() {
-		return sum()/arr.length;
-	}
-	public void display() {
-		for(int i : arr) {
-			System.out.println(i);
-		}
 	}
 }

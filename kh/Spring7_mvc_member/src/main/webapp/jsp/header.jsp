@@ -71,6 +71,7 @@
 		    width: 30px;
 		    height: 30px;
 		    margin: 15px;
+		    cursor: pointer;
 		}
 		.header_text div span{
 			width: 100%;
@@ -127,6 +128,9 @@
 	</style>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<script>
+		function member_del(){
+			window.open("member_del.nhn","회원탈퇴","width=400,height=300, left=500, top=350");
+		}
 		$(document).ready(function(){
 		    
 			
@@ -190,7 +194,9 @@
 						<div class="div_mypage">
 							<span id="span_mypage">${id}</span>
 							<div class="arrow_box">
-								수정&nbsp; ·&nbsp; 탈퇴
+								<span class="span_modify" onclick="location.href='./member_update.nhn'">수정</span>
+								&nbsp; ·&nbsp; 
+								<span class="span_delete" onclick="member_del()">탈퇴</span>
 							</div>
 						</div>
 					</c:if>
@@ -219,7 +225,9 @@
 						<div class="div_mypage">
 							<img id="img_mypage" src="./resources/images/user.png">
 							<div class="arrow_box">
-								수정&nbsp; ·&nbsp; 탈퇴
+								<span class="span_modify" onclick="location.href='./member_update.nhn'">수정</span>
+								&nbsp; ·&nbsp; 
+								<span class="span_delete" onclick="member_del()">탈퇴</span>
 							</div>
 						</div>
 					</c:if>

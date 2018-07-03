@@ -28,6 +28,13 @@
 	<select id="findPwd" parameterType="map" resultType="member">
 		select * from join_member2 where join_name = #{join_name} and join_id = #{join_id} 
 	</select>
+	
+	<update id="update">
+		update join_member2 set join_name = #{join_name}, join_zip = #{join_zip}, join_addr1 = #{join_addr1}, 
+			join_addr2 = #{join_addr2}, join_tel = #{join_tel}, join_phone = #{join_phone}, 
+			join_email = #{join_email}, join_file = #{join_file}, join_original = #{join_original}   
+		where join_id = #{join_id}
+	</update>
 
 </mapper>
 

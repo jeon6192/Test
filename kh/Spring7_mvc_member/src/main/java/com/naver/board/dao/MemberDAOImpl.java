@@ -41,4 +41,9 @@ public class MemberDAOImpl {
 		MemberBean memberBean = sqlSession.selectOne("Test.findPwd", pm);
 		return memberBean;
 	}
+	
+	public void updateMember(MemberBean member) throws Exception {
+		sqlSession.update("Test.update", member);
+		
+	}
 }
