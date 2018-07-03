@@ -3,32 +3,18 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
-		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<script src="./resources/js/join.js"></script>
-		<style>
-			#join_t tbody tr:first-child{
-				position: relative;
-			}
-			#idcheck{
-				position: absolute;
-				top: 5.8em;
-			}
-		</style>
 	</head>
 	<body>
-		<div id="join_wrap">
-			<h2 class="join_title">회원가입</h2>
+		<div id="modify_wrap">
+			<h2 class="modify_title">회원정보수정</h2>
 			
-			<form name="f" method="post" action="./member_join_ok.nhn" onsubmit="return check()"  enctype="multipart/form-data"> 
+			<form name="f" method="post" action="./member_modify_ok.nhn" onsubmit="return check()"  enctype="multipart/form-data"> 
 				<table id="join_t">
 					<tr>
 						<th>회원아이디</th>
 						<td>
-							<input name="join_id" id="join_id" size="14" class="input_box">
-							<input type="button" value="아이디 중복체크" class="input_button" onclick="id_check()">
-							<div id="idcheck"></div>
+							<input name="join_id" id="join_id" size="14" class="input_box" readonly="readonly">
 						</td>
 					</tr>
 					

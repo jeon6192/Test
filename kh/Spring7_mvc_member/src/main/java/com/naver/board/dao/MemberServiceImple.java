@@ -15,35 +15,30 @@ public class MemberServiceImple implements MemberService {
 	@Autowired
 	private MemberDAOImpl dao;
 
-	@Override
-	public int checkMemberId(String id) throws Exception {
-		int result = dao.checkMemberId(id);
-		
-		return result;
-	}
 
 	@Override
 	public List<ZipcodeBean2> findZipcode(String dong) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		List<ZipcodeBean2> zipcodeList = dao.findZipcode(dong);
+		
+		return zipcodeList;
 	}
 
 	@Override
 	public MemberBean findpwd(Map pm) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		MemberBean memberBean = dao.findpwd(pm);
+		return memberBean;
 	}
 
 	@Override
 	public void insertMember(MemberBean m) throws Exception {
-		// TODO Auto-generated method stub
+		dao.insertMember(m);
 		
 	}
 
 	@Override
 	public MemberBean userCheck(String id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		MemberBean memberBean = dao.userCheck(id);
+		return memberBean;
 	}
 
 	@Override
@@ -56,6 +51,12 @@ public class MemberServiceImple implements MemberService {
 	public void updateMember(MemberBean member) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int checkMemberId(String id) throws Exception {
+		int result = dao.checkMemberId(id);
+		return result;
 	}	
 
 	

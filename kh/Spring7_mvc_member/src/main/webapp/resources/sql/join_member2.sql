@@ -31,3 +31,5 @@ select * from join_member2;
 
 insert into join_member2 values(1, 'test', '1234', '1234', '1234', '1234', '1234', '1234',
  '1234', '1234', '1234', sysdate, 1234, '1234', sysdate, '1234');
+
+ delete from JOIN_MEMBER2 where join_code = 2;
