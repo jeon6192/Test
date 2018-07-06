@@ -2,6 +2,7 @@ package com.naver.board.action;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -10,12 +11,14 @@ import java.util.Map;
 import java.util.Random;
 import java.util.StringTokenizer;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,12 +35,26 @@ public class MemberAction {
 	@Autowired
 	private MemberService memberService;
 	
-	private String saveFolder = "C:\\Users\\user1\\git\\Test\\kh\\Spring7_mvc_member\\src\\main\\webapp\\resources\\upload";
+	//private String saveFolder = "C:\\Users\\user1\\git\\Test\\kh\\Spring7_mvc_member\\src\\main\\webapp\\resources\\upload";
+	private String saveFolder = "C:/Program Files/Apache Software Foundation/Tomcat 8.5/webapps/myhome7/resources/upload";
 	
 	@RequestMapping(value = "/member_login.nhn")
 	public ModelAndView login() {
 		ModelAndView mav = new ModelAndView("template");
 		mav.addObject("viewName", "member/member_login");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/member_loginbox.nhn")
+	public ModelAndView loginBox(HttpServletRequest request, 
+			HttpServletResponse response, 
+			@CookieValue(value = "rememId", required = false) Cookie readCookie) throws Exception{
+		ModelAndView mav = new ModelAndView("member/login");
+		
+		if(readCookie != null) {
+			mav.addObject("saveid", readCookie.getValue());
+		}
+		
 		return mav;
 	}
 
@@ -82,7 +99,7 @@ public class MemberAction {
 			String homeDir = saveFolder + "/" + year + "-" + month + "-" + date;
 			
 			File path1 = new File(homeDir);
-			
+			System.out.println(path1.getPath());
 			if(!(path1.exists())) {
 				System.out.println("폴더 생성");
 				path1.mkdirs();
@@ -189,10 +206,18 @@ public class MemberAction {
 			HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
-		String id = request.getParameter("id");
+		
+		boolean idChk = request.getParameter("rememId") != null;
+		String id = request.getParameter("join_id");
 		String join_name = memberService.userCheck(id).getJoin_name();
 		String join_file = memberService.userCheck(id).getJoin_file();
 		
+		Cookie cookie = null;
+		if(idChk != false) {
+			cookie = new Cookie("rememId", id);
+			cookie.setMaxAge(120);
+			response.addCookie(cookie);
+		}
 		
 		session.setAttribute("id", id);
 		session.setAttribute("join_name", join_name);
@@ -345,7 +370,7 @@ public class MemberAction {
 		return mav;
 	}
 	
-	@RequestMapping(value = "/member_delete.nhn")
+	@RequestMapping(value = "/member_del.nhn")
 	public ModelAndView member_del(HttpSession session, 
 			HttpServletResponse response) throws Exception {
 		String id = session.getAttribute("id").toString();
@@ -357,6 +382,39 @@ public class MemberAction {
 		
 		return mav;
 	}
+	
+	
+	@RequestMapping(value = "/member_del_ok.nhn", method = {RequestMethod.POST, RequestMethod.GET})
+	public void member_del_ok(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession session = request.getSession();
+		
+		String id = session.getAttribute("id").toString();
+		String pass = request.getParameter("pwd").trim();
+		String del_cont = request.getParameter("del_cont").trim();
+		
+		MemberBean memberBean = memberService.userCheck(id);
+		
+		if(!memberBean.getJoin_pwd().equals(pass)) {
+			response.getWriter().println("<script> alert('비번이 다름'); history.back(); </script>");
+		} else {
+			String fileName = memberBean.getJoin_file();
+			
+			if(fileName != null) {
+				File delFile = new File(saveFolder + fileName);
+				delFile.delete();
+			}
+			MemberBean delMemberBean = new MemberBean();
+			
+			delMemberBean.setJoin_id(id);
+			delMemberBean.setJoin_delcont(del_cont);
+			memberService.deleteMember(delMemberBean);
+			session.invalidate();
+			response.getWriter().println("<script> alert('탈퇴성공'); window.close(); </script>");
+		}
+	}
+	
+	
 	
 	
 }

@@ -43,7 +43,7 @@ public class MemberServiceImple implements MemberService {
 
 	@Override
 	public void deleteMember(MemberBean delm) throws Exception {
-		// TODO Auto-generated method stub
+		dao.deleteMember(delm);
 		
 	}
 

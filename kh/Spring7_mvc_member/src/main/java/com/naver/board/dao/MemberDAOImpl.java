@@ -46,4 +46,8 @@ public class MemberDAOImpl {
 		sqlSession.update("Test.update", member);
 		
 	}
+	
+	public void deleteMember(MemberBean delm) throws Exception {
+		sqlSession.update("Test.delUpdate", delm);
+	}
 }

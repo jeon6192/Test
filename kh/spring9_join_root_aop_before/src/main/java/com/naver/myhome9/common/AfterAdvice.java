@@ -1,0 +1,12 @@
+package com.naver.myhome9.common;
+
+import org.aspectj.lang.JoinPoint;
+
+public class AfterAdvice {
+	public void afterLog(JoinPoint proceeding) {
+		System.out.println("=====>"
+				+ proceeding.getTarget().getClass().getName()
+				+"의"+proceeding.getSignature().getName()+"호출합니다.");
+		System.out.println("=====>AfterAdvice : 비즈니스 로직 수행 후 동작 입니다.");
+	}
+}

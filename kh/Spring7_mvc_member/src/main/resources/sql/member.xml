@@ -7,7 +7,7 @@
 	</select>
 	
 	<select id="userCheck" parameterType="String" resultType="member">
-		select * from join_member2 where join_id = #{join_id}
+		select * from join_member2 where join_id = #{join_id} and join_state = 1
 	</select>
 	
 	<select id="zipcodeList" parameterType="String" resultType="Zipcode">
@@ -33,6 +33,12 @@
 		update join_member2 set join_name = #{join_name}, join_zip = #{join_zip}, join_addr1 = #{join_addr1}, 
 			join_addr2 = #{join_addr2}, join_tel = #{join_tel}, join_phone = #{join_phone}, 
 			join_email = #{join_email}, join_file = #{join_file}, join_original = #{join_original}   
+		where join_id = #{join_id}
+	</update>
+	
+	<update id="delUpdate">
+		update join_member2 set join_file = NULL, join_state = 2, join_delcont = #{join_delcont}, 
+			join_deldate = sysdate, join_original = NULL
 		where join_id = #{join_id}
 	</update>
 

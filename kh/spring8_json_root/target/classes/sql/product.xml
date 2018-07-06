@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="JSON">
+	<select id="select_one" parameterType="int" resultType="product">
+		select * from products where id = #{id}
+	</select>
+<!--  
+	1.삽입한 ID의 값을 사용하고자 할 때 <seletKey>를 사용합니다.
+	2.
+		keyProperty = "id" :
+				<selectKey> 엘리먼트 안에 있는 sql 문을 실행한 결과를 setId()에 저장합니다.
+				parameterType = "product"에 setId()에 존재해야 하며 이 메서드에 저장 합니다.
+				order = "BEFORE" : insert 실행 전에 select 문을 실행하라는 의미
+				order = "AFTER" : insert 실행 후에select 문을 실행하라는 의미
+	3. 여기서 구한 id 값이 아래의 insert 문 실행시에 적용됩니다.
+		INSERT INTO PRODUCTS VALUES(#{id},#{name},#{modelnumber},#{series}) 
+
+	4.JsonAction.java의 save = service.get_whereid(save.getId());	
+		setId()로 저장한 값을 getId()로 사용하고 있습니다.
+
+-->	
+<!-- 	<insert id="insert" parameterType="product">
+		<selectKey resultType="int" keyProperty="id" order="BEFORE">
+			select nvl(max(id),0) + 1 from products
+		</selectKey>
+		insert into products values(#{id} ,#{name},#{modelnumber},#{series})		
+	</insert> -->
+	
+	<insert id="insert" parameterType="product">
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			select nvl(max(id),0) from products
+		</selectKey>
+		insert into products values(products_id_seq.nextval ,#{name},#{modelnumber},#{series})		
+	</insert>
+	
+	<select id="select_list" resultType="product">
+		select * from products order by id asc
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
