@@ -6,12 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.test.haha.bean.ApartListBean;
 import com.test.haha.bean.ApartmentBean;
 import com.test.haha.bean.AptComplexBean;
 import com.test.haha.dao.ApartmentDAO;
 
+@Service
 public class ApartmentServiceImpl implements ApartmentService {
 	@Autowired
 	private ApartmentDAO apartmentDAO;

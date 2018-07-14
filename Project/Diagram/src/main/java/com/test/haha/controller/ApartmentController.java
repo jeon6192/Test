@@ -20,6 +20,11 @@ public class ApartmentController {
 	private ApartmentService apartmentService;
 	
 	
+	@RequestMapping("/main.com")
+	public ModelAndView mainPage() {
+		return new ModelAndView("template");
+	}
+	
 	@RequestMapping(value = "/apart/insertform.com")
 	public ModelAndView insertform_apart() {
 		
