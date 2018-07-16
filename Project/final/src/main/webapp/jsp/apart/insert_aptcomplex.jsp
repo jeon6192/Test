@@ -7,6 +7,8 @@
 		<title>Insert title here</title>
 		<link href="../resources/css/insert_apart.css" rel="stylesheet" type="text/css">
 		
+		<script src="../resources/js/insert_apart.js"></script>
+		
 	</head>
 	
 	<body>
