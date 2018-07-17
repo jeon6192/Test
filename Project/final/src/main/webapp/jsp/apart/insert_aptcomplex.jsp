@@ -7,6 +7,7 @@
 		<title>Insert title here</title>
 		<link href="../resources/css/insert_apart.css" rel="stylesheet" type="text/css">
 		
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script src="../resources/js/insert_apart.js"></script>
 		
 	</head>
@@ -48,18 +49,17 @@
 						</div>
 						<div class="div_cpx_input">
 							<select class="select_cpx_count">
-								<option value="0">동 수</option>
 								<option value="1">1</option>
-								<option value="1">2</option>
-								<option value="1">3</option>
-								<option value="1">4</option>
-								<option value="1">5</option>
-								<option value="1">6</option>
-								<option value="1">7</option>
-								<option value="1">8</option>
-								<option value="1">9</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
+								<option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
 							</select>
-							<input type="text" class="input_cpx_count">
+							<input type="text" class="input_cpx_count" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
 							&nbsp; <b>동</b>
 						</div>
 					</div>
@@ -75,7 +75,8 @@
 			<li class="li_info2">
 				<div class="div_apart_info">
 					<div class="div_apart_info_detail">
-						세부사항
+						<div class="div_detail_left"></div>
+						<div class="div_detail_right"></div>
 					</div>
 				</div>
 				
@@ -86,7 +87,7 @@
 						</span>
 					</div>
 					<div class="div_cpx_info_text">
-						<textarea rows="15" cols="10" class="textarea_cpx_info"></textarea>
+						<textarea cols="10" class="textarea_cpx_info"></textarea>
 					</div>
 				</div>
 			</li>
@@ -118,24 +119,19 @@
 							</li>
 							<li class="li_subway_bottom">
 								<div class="div_subway_bottom">
-									<select class="select_station">
-										<option value="0">지하철역</option>
-										<option value="1">1</option>
-										<option value="1">2</option>
-										<option value="1">3</option>
-										<option value="1">4</option>
-										<option value="1">5</option>
-										<option value="1">6</option>
-										<option value="1">7</option>
-										<option value="1">8</option>
-										<option value="1">9</option>
-									</select>
-									<input type="text" class="input_foot">
+									<input class="input_subway">
+									<input type="text" class="input_foot" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
 									&nbsp; <b>분</b>
 								</div>
 							</li>
 						</ul>
 					</div>
+				</div>
+			</li>
+			
+			<li class="li_last">
+				<div class="div_last">
+					<button type="submit" class="btn_submit">등록</button>
 				</div>
 			</li>
 			

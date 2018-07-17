@@ -40,34 +40,6 @@ public class ApartmentController {
 		return new ModelAndView("template", "viewName", "apart/insert_aptcomplex.jsp");
 	}
 	
-	@RequestMapping("/search_station.com")
-	public void search_stataion(HttpServletResponse response) throws Exception{
-		System.out.println("?dhsi?");
-		StringBuilder urlBuilder = new StringBuilder(PHARM_URL); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "="+KEY); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("subwayStationName","UTF-8") + "=" + URLEncoder.encode("서울", "UTF-8")); /*지하철역명*/
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
-        System.out.println("Response code: " + conn.getResponseCode());
-        BufferedReader rd;
-        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-        rd.close();
-        conn.disconnect();
-        System.out.println(sb.toString());
-    
-	}
-	
 	@RequestMapping(value = "/apart/insert.com")
 	public ModelAndView insert_apart(AptComplexBean aptComplexBean, 
 			ApartListBean apartListBean) throws Exception {
