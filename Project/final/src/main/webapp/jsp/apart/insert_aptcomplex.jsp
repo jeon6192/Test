@@ -7,6 +7,7 @@
 		<title>Insert title here</title>
 		<link href="../resources/css/insert_apart.css" rel="stylesheet" type="text/css">
 		
+		<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script src="../resources/js/insert_apart.js"></script>
 		
@@ -14,6 +15,7 @@
 	
 	<body>
 	
+		<form action="../apart/insert.com" method="post" id="insert_apt" onsubmit="return insert();">
 		<ul class="ul_insert">
 		
 			<li class="li_map">
@@ -28,44 +30,58 @@
 			
 			<li class="li_info1">
 			
-				<div class="div_aptname">
-					<div class="div_aptname_span">
-						<span class="span_info">
-							아파트명
-						</span>
-					</div>
-					<div class="div_aptname_input">
-						<input type="text" name="complex_apartname" class="input_cpx_apartname">
-					</div>
-				</div>
-				
-				<div class="div_cpx_count">
-				
-					<div class="div_cpx_count_top">
-						<div class="div_cpx_count_span">
+				<div class="div_apart_info1">
+					
+					<div class="div_aptname">
+						<div class="div_aptname_span">
 							<span class="span_info">
-								단지 내 아파트 개수
+								아파트명
 							</span>
 						</div>
-						<div class="div_cpx_input">
-							<select class="select_cpx_count">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-							</select>
-							<input type="text" class="input_cpx_count" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
-							&nbsp; <b>동</b>
+						<div class="div_aptname_input">
+							<input type="text" name="complex_apartname" class="input_cpx_apartname">
 						</div>
 					</div>
 					
-					<div class="div_cpx_btn">
-						<button type="button" class="btn_cpx_count">입력</button>
+					<div class="div_cpx_count">
+					
+						<div class="div_cpx_count_top">
+							<div class="div_cpx_count_span">
+								<span class="span_info">
+									단지 내 아파트 개수
+								</span>
+							</div>
+							<div class="div_cpx_input">
+								<select class="select_cpx_count">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
+									<option value="6">6</option>
+									<option value="7">7</option>
+									<option value="8">8</option>
+									<option value="9">9</option>
+								</select>
+								<input type="text" class="input_cpx_count" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
+								&nbsp; <b>동</b>
+							</div>
+						</div>
+						
+						<div class="div_cpx_btn">
+							<button type="button" class="btn_cpx_count">입력</button>
+						</div>
+					</div>
+				</div>
+				
+				<div class="div_cpx_info">
+					<div class="div_cpx_info_span">
+						<span class="span_info">
+							아파트 소개
+						</span>
+					</div>
+					<div class="div_cpx_info_text">
+						<textarea cols="10" class="textarea_cpx_info"></textarea>
 					</div>
 				</div>
 					
@@ -80,16 +96,7 @@
 					</div>
 				</div>
 				
-				<div class="div_cpx_info">
-					<div class="div_cpx_info_span">
-						<span class="span_info">
-							아파트 소개
-						</span>
-					</div>
-					<div class="div_cpx_info_text">
-						<textarea cols="10" class="textarea_cpx_info"></textarea>
-					</div>
-				</div>
+				
 			</li>
 			
 			<li class="li_info3">
@@ -137,6 +144,6 @@
 			
 			
 		</ul>
-		
+		</form>
 	</body>
 </html>

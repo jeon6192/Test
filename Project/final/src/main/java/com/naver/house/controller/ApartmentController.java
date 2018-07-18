@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.naver.house.bean.ApartListBean;
+import com.naver.house.bean.ApartmentBean;
 import com.naver.house.bean.AptComplexBean;
 import com.naver.house.service.ApartmentService;
 
@@ -43,12 +44,18 @@ public class ApartmentController {
 	@RequestMapping(value = "/apart/insert.com")
 	public ModelAndView insert_apart(AptComplexBean aptComplexBean, 
 			ApartListBean apartListBean) throws Exception {
-		Map<String, Object> apartMap = new HashMap<String, Object>();
+		System.out.println(aptComplexBean.getComplex_address());
+		
+		for (ApartmentBean apart : apartListBean.getApartBeanList()) {
+			System.out.println(apart.getApart_area());
+		}
+		
+		/*Map<String, Object> apartMap = new HashMap<String, Object>();
 		
 		apartMap.put("aptComplexBean", aptComplexBean);
 		apartMap.put("apartListBean", apartListBean);
 		
-		apartmentService.insert_apart(apartMap);
+		apartmentService.insert_apart(apartMap);*/
 		
 		
 		//return new ModelAndView("template", "viewName", "apart/list");

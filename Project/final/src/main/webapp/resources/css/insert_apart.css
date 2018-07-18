@@ -50,12 +50,16 @@ li{
 }
 
 .li_info1 {
-	height: 110px;
+	height: 300px;
 }
 
-.div_aptname {
+.div_apart_info1{
 	width: 49%;
 	float: left;
+}
+.div_aptname {
+	width: 100%;
+	height: 50% !important;
 }
 
 .div_aptname_span {
@@ -71,11 +75,13 @@ li{
 }
 
 .input_cpx_apartname {
-	width: 70%;
+	width: 75%;
 }
 
 .div_cpx_count {
-	width: 49%;
+	width: 100%;
+	height: 50% !important;
+	text-align: center !important;
 }
 
 .div_cpx_count_top {
@@ -109,7 +115,7 @@ li{
 	text-align: center !important;
 }
 
-button {
+.div_cpx_btn>button, .div_last>button {
 	margin: 0 auto;
 	width: 80px;
 	height: 25px !important;
@@ -121,7 +127,7 @@ button {
 	font-weight: bold;
 }
 
-button:hover {
+.div_cpx_btn>button:hover, .div_last>button:hover {
 	color: white;
 	background-color: black;
 }
@@ -131,8 +137,7 @@ button:hover {
 }
 
 .div_apart_info {
-	width: 49%;
-	float: left;
+	width: 100%;
 }
 
 .div_cpx_info {
@@ -140,8 +145,7 @@ button:hover {
 }
 
 .div_apart_info_detail {
-	width: 90%;
-	height: 90% !important;
+	width: 95%;
 }
 
 .div_cpx_info_span {
@@ -156,7 +160,7 @@ button:hover {
 
 .textarea_cpx_info {
 	width: 95%;
-	height: 270px;
+	height: 100%;
 	resize: none;
 	border: 1px solid #b3b3b3;
 	border-radius: 4px;
@@ -236,15 +240,14 @@ ul#ui-id-1 {
 	float: left;
 }
 .div_detail_left{
-	width: 18%;
+	width: 10%;
 	overflow: auto;
 	font-weight: bold;
 	font-family: test;
 	font-size: 14;
-	cursor: pointer;
 }
 .div_detail_right{
-	width: 80%;
+	width: 88%;
     font-weight: bold;
     font-family: test;
     font-size: 14;

@@ -60,11 +60,12 @@ $(document).ready(function() {
     	}
     	
     	$('.div_detail_left').css('background-color', '#d8d8d8');
-    	$('.div_detail_right').css('background-color', '#bfffff');
+    	$('.div_apart_info_detail').css('border', '1px solid #dfdfdf');
     	
     	var apart = [];
     	var left = '';
-    	var right = '';
+		var right = '';
+		var right_script = '<script>';
     	
     	for (let i = 1; i <= back; i++) {
     		if (i < 10) {
@@ -76,28 +77,45 @@ $(document).ready(function() {
     		left += '<div class="div_apart_dong" id="detail_left'+i+'" onclick="select_apart('+i+')">'+apart[i]+
     			'<input type="hidden" name="apartBeanList['+(i-1)+'].apart_dong" value="'+apart[i]+'"></div>';
     		
-    		right += '<div class="div_dong_detail" id="detail_right'+i+'">'+
-    			'<ul class="ul_dong_detail">'
+    		right += '<div class="div_dong_detail" id="detail_right'+i+'">'
+    			+'<ul class="ul_dong_detail">'
     			+'<li class="li_dong_detail0">'+apart[i]+'동</li>'
     			+'<li class="li_dong_detail1"><div class="div_dong_detail1">층수&nbsp;<input type="text" name="apartBeanList['+(i-1)+'].apart_floor" placeholder="층" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"> </div></li>'
     			+'<li class="li_dong_detail2"><div class="div_dong_detail2">면적&nbsp;<input type="text" name="apartBeanList['+(i-1)+'].apart_area" placeholder="m²" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"> </div></li>'
     			+'<li class="li_dong_detail3"><div class="div_dong_detail3">방 개수&nbsp;<input type="text" name="apartBeanList['+(i-1)+'].apart_room" placeholder="개" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"> </div></li>'
     			+'<li class="li_dong_detail4"><div class="div_dong_detail4">화장실&nbsp;<input type="text" name="apartBeanList['+(i-1)+'].apart_toilet" placeholder="개" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"> </div></li>'
     			+'<li class="li_dong_detail5"><div class="div_dong_detail5">가격&nbsp;<input type="text" name="apartBeanList['+(i-1)+'].apart_price" placeholder="만원" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)"> </div></li>'
-    			+'</div>';
-    	}
+    			+'</ul><div class="div_dong_detail_img">' 
+    			+'<input type="hidden" role="uploadcare-uploader" id="image'+apart[i]+'" data-images-only="true" data-multiple="true" onclick="insert_img('+apart[i]+')" />' 
+    			+'<div id="showImage'+apart[i]+'" class="showImg"></div>' 
+    			+'<input type="hidden" id="img_hidden'+apart[i]+'" name="apartBeanList['+(i-1)+'].apart_interior" value="">'
+				+'</div></div>';
+				
+			right_script += 'uploadcare.MultipleWidget("[id=image'+apart[i]+']").onUploadComplete(function(info){'
+							+ 'insert_img(info, '+apart[i]+'); });';
+		}
+		
+		right_script += '</script>';
+
     	$('.div_detail_left').empty().append(left);
-    	$('.div_detail_right').empty().append(right);
+		$('.div_detail_right').empty().append(right).append(right_script);
+		
+		$('.div_dong_detail_img').css({
+			'width' : '58%', 
+			'height' : '100%'
+		});
     	$('.div_apart_dong').css({
     		'height' : '20px'
     	});
     	$('.ul_dong_detail').css({
     		'box-sizing' : 'border-box',
     		'padding' : '3px',
-    		'width' : '100%',
-    		'height' : '100%'
-    	});
-    	$('.ul_dong_detail li').css({
+    		'width' : '40%',
+			'height' : '100%',
+			'display' : 'inline-block'
+		});
+		$('.uploadcare--widget__dragndrop-area').css('display', 'none');
+    	$('.ul_dong_detail>li').css({
     		'box-sizing' : 'border-box',
     		'height' : '16.666%',
     		'width' : '100%',
@@ -107,7 +125,7 @@ $(document).ready(function() {
     		'font-size' : '12pt',
     		'color' : 'blue'
     	});
-    	$('.ul_dong_detail li div').css({
+    	$('.ul_dong_detail>li>div').css({
     		'height' : '100%',
     		'width' : '100%',
     		'padding-right' : '80px'
@@ -115,7 +133,16 @@ $(document).ready(function() {
     	$('.ul_dong_detail li input').css({
     		'width' : '40%',
     		'float' : 'right'
-    	});
+		});
+		$('.uploadcare--widget.uploadcare--widget_status_ready').css({
+			'height' : '15%',
+			'padding-top' : '0.5em'
+		});
+		$('.div_dong_detail_img>.showImg').css('height', '85%');
+		$('canvas.uploadcare--progress__canvas').css({
+			'width' : '15%',
+			'margin' : '0 auto'
+		});
     	
     	
     	$('.div_dong_detail').css({
@@ -124,13 +151,86 @@ $(document).ready(function() {
     		'display' : 'none'
     	});
     	$('#detail_right1').css('display', 'block');
-    	$('#detail_left1').css('background-color', 'yellow');
+    	$('#detail_left1').css({
+			'background-color' : 'yellow',
+			'cursor' : 'pointer'
+		});
     	
     	
-    });
+	});
+	
     
 	
 });
+
+
+function insert(){
+	if($('.input_cpx_apartname').val() == ''){
+			alert('insert aptname!');
+			$(this).focus();
+			return false;
+		}
+
+	if(typeof $('.div_dong_detail').val() === 'undefined'){
+		alert('add!');
+		return false;
+	}
+
+	var count = 0;
+	$('.ul_dong_detail li>div>input').each(function(){	
+		count++;
+		if ($(this).val() == ''){
+			alert('insert detail!');
+			$(this).focus();
+			return false;
+		}
+	});
+
+	if(count != $('.ul_dong_detail li>div>input').length){
+		return false;
+	}
+
+	//return ture;
+}
+
+UPLOADCARE_LOCALE = "ko";
+UPLOADCARE_TABS = "file url";
+UPLOADCARE_PUBLIC_KEY = "c45d0fc9bcc9538a677e";
+UPLOADCARE_LOCALE_TRANSLATIONS = {
+	buttons: {
+		cancel: 'Cancel',
+		remove: 'Remove',
+		choose: {
+			images: {
+			one: '파일 첨부',
+			other: '파일 첨부'
+			}
+		}
+	}
+};
+
+function insert_img(info, id) {
+	var url=[];
+	console.log(info.cdnUrl);
+	
+	var showImage = '#showImage' + id;
+	var img_hidden = '#img_hidden' + id;
+	console.log(showImage + '  ' + img_hidden);
+	
+	$('#showImage'+id).empty();
+	$('#img_hidden'+id).attr('value', '');
+	var length=info.cdnUrl.charAt(info.cdnUrl.length-2);
+	
+	for(var i=0;i<length;i++){
+		url[i]=info.cdnUrl+"nth/"+i+"/";
+		$('#showImage'+id).append('<img src="'+url[i]+'-/resize/x100/"/>');
+		url[i]+="-/resize/500x/ ";
+		var val=$('#img_hidden'+id).attr('value');
+		$('#img_hidden'+id).attr('value', val+url[i]);
+	}
+	
+}
+
 
 function select_apart(num) {
 	$('.div_apart_dong').css('background-color', 'transparent');
