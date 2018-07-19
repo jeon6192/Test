@@ -1,8 +1,8 @@
 package com.naver.house.bean;
 
 public class ApartmentBean {
-	private int apart_id;
-	private int complex_id;
+	private long apart_id;
+	private long complex_id;
 	private int apart_dong;
 	private int apart_ho;
 	private int apart_floor;
@@ -13,19 +13,19 @@ public class ApartmentBean {
 	private String apart_interior;
 
 	
-	public int getApart_id() {
+	public long getApart_id() {
 		return apart_id;
 	}
 
-	public void setApart_id(int apart_id) {
+	public void setApart_id(long apart_id) {
 		this.apart_id = apart_id;
 	}
 
-	public int getComplex_id() {
+	public long getComplex_id() {
 		return complex_id;
 	}
 
-	public void setComplex_id(int complex_id) {
+	public void setComplex_id(long complex_id) {
 		this.complex_id = complex_id;
 	}
 

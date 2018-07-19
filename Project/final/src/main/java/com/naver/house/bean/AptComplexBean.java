@@ -1,10 +1,10 @@
 package com.naver.house.bean;
 
 public class AptComplexBean {
-	private int complex_id;
+	private long complex_id;
 	private String complex_address;
-	private Double complex_lat;
-	private Double complex_lng;
+	private double complex_lat;
+	private double complex_lng;
 	private String complex_apartname;
 	private String complex_pdate;
 	private int complex_state;
@@ -14,11 +14,11 @@ public class AptComplexBean {
 	private int complex_foot;
 
 	
-	public int getComplex_id() {
+	public long getComplex_id() {
 		return complex_id;
 	}
 
-	public void setComplex_id(int complex_id) {
+	public void setComplex_id(long complex_id) {
 		this.complex_id = complex_id;
 	}
 
@@ -30,19 +30,19 @@ public class AptComplexBean {
 		this.complex_address = complex_address;
 	}
 
-	public Double getComplex_lat() {
+	public double getComplex_lat() {
 		return complex_lat;
 	}
 
-	public void setComplex_lat(Double complex_lat) {
+	public void setComplex_lat(double complex_lat) {
 		this.complex_lat = complex_lat;
 	}
 
-	public Double getComplex_lng() {
+	public double getComplex_lng() {
 		return complex_lng;
 	}
 
-	public void setComplex_lng(Double complex_lng) {
+	public void setComplex_lng(double complex_lng) {
 		this.complex_lng = complex_lng;
 	}
 

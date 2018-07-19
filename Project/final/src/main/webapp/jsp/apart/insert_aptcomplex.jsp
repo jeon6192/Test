@@ -5,11 +5,24 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
-		<link href="../resources/css/insert_apart.css" rel="stylesheet" type="text/css">
 		
+		<link href="../resources/css/insert_apart.css" rel="stylesheet" type="text/css">
+		<!-- DatePicker -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		
+		<!-- Image API -->
 		<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 		<script src="../resources/js/insert_apart.js"></script>
+		
+		
+
+		<link rel="stylesheet" href="../resources/css/datepicker.css" />
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+
+		<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="../resources/js/datepicker.js"></script>
 		
 	</head>
 	
@@ -74,6 +87,7 @@
 					</div>
 				</div>
 				
+				
 				<div class="div_cpx_info">
 					<div class="div_cpx_info_span">
 						<span class="span_info">
@@ -81,7 +95,8 @@
 						</span>
 					</div>
 					<div class="div_cpx_info_text">
-						<textarea cols="10" class="textarea_cpx_info"></textarea>
+						<textarea cols="10" class="textarea_cpx_info" name="complex_info" onkeyup="chkword(this,1000)" placeholder="내용은 1000자까지 입력가능합니다."></textarea>
+						<span id="counter">0/1000</span>
 					</div>
 				</div>
 					
@@ -107,7 +122,7 @@
 						</span>
 					</div>
 					<div class="div_apart_pdate_cal">
-						
+						<input id="date" type="text" name="complex_pdate">
 					</div>
 				</div>
 				
@@ -121,13 +136,13 @@
 						<ul class="ul_subway_detail">
 							<li class="li_subway_top">
 								<div class="div_subway_top">
-									<input type="checkbox" class="chk_subway">
+									<input type="checkbox" class="chk_subway" name="chk_subway">
 								</div>
 							</li>
 							<li class="li_subway_bottom">
 								<div class="div_subway_bottom">
-									<input class="input_subway">
-									<input type="text" class="input_foot" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)">
+									<input class="input_subway" name="complex_station">
+									<input type="text" class="input_foot" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" name="complex_foot">
 									&nbsp; <b>분</b>
 								</div>
 							</li>

@@ -1,14 +1,6 @@
 package com.naver.house.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +24,8 @@ public class ApartmentController {
 	
 	@RequestMapping("/main.com")
 	public ModelAndView mainPage() {
-		return new ModelAndView("template");
+		//return new ModelAndView("template");
+		return new ModelAndView("apart/test");
 	}
 	
 	@RequestMapping(value = "/apart/insertform.com")
@@ -43,11 +36,58 @@ public class ApartmentController {
 	
 	@RequestMapping(value = "/apart/insert.com")
 	public ModelAndView insert_apart(AptComplexBean aptComplexBean, 
-			ApartListBean apartListBean) throws Exception {
-		System.out.println(aptComplexBean.getComplex_address());
+			ApartListBean apartListBean, 
+			@RequestParam(value="chk_subway", defaultValue="false") boolean chk_subway) throws Exception {
+		aptComplexBean.setComplex_state(0);
+		if (chk_subway) {
+			aptComplexBean.setComplex_subway(1);
+		} else {
+			aptComplexBean.setComplex_subway(0);
+		}
 		
+		String id1 = aptComplexBean.getComplex_pdate().replaceAll("-", "") + new Random().nextInt(1000);
+		aptComplexBean.setComplex_id(Long.parseLong(id1));
+		
+		
+		System.out.println("단지고유 번호 : "+aptComplexBean.getComplex_id());
+		System.out.println("주소 : "+aptComplexBean.getComplex_address()+"(나중에)");
+		System.out.println("위도 : "+aptComplexBean.getComplex_lat()+"(나중에)");
+		System.out.println("경도 : "+aptComplexBean.getComplex_lng()+"(나중에)");
+		System.out.println("아파트명 : "+aptComplexBean.getComplex_apartname());
+		System.out.println("분양시기 : "+aptComplexBean.getComplex_pdate());
+		System.out.println("소개글 : "+aptComplexBean.getComplex_info());
+		System.out.println("역세권 : "+aptComplexBean.getComplex_subway());
+		System.out.println("근처역 : "+aptComplexBean.getComplex_station());
+		System.out.println("소요시간 : "+aptComplexBean.getComplex_foot());
+		
+		int seq = 1;
 		for (ApartmentBean apart : apartListBean.getApartBeanList()) {
-			System.out.println(apart.getApart_area());
+			for (int i = 1; i <= apart.getApart_floor(); i++) {
+				for (int j = 1; j < 5; j++) {
+					
+					String id2 = id1 + (seq++);
+					apart.setApart_id(Long.parseLong(id2));
+					
+					apart.setComplex_id(Long.parseLong(id1));
+					
+					apart.setApart_ho(Integer.parseInt(Integer.toString(i) + "0" + j));
+					
+					
+					System.out.println("\n--------동---------- : "+apart.getApart_dong());
+					System.out.println("아파트 ID : "+apart.getApart_id());
+					System.out.println("단지고유 번호 : "+apart.getComplex_id());
+					System.out.println("동 : "+apart.getApart_dong());
+					System.out.println("호 : "+apart.getApart_ho());
+					System.out.println("층 : "+apart.getApart_floor());
+					System.out.println("면적 : "+apart.getApart_area());
+					System.out.println("가격 : "+apart.getApart_price());
+					System.out.println("방 : "+apart.getApart_room());
+					System.out.println("화장실 : "+apart.getApart_toilet());
+					System.out.println("인테리어사진 : "+apart.getApart_interior());
+				}
+			}
+			
+			
 		}
 		
 		/*Map<String, Object> apartMap = new HashMap<String, Object>();
@@ -59,7 +99,8 @@ public class ApartmentController {
 		
 		
 		//return new ModelAndView("template", "viewName", "apart/list");
-		return new ModelAndView("redirect:/apart/list.com");
+		return new ModelAndView("redirect:/apart/insertform.com");
+		//return new ModelAndView("redirect:/apart/list.com");
 	}
 	
 	@RequestMapping(value = "/apart/detail.com")

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	
+	// 역세권
 	$('.div_subway_bottom input').css('background-color', '#d8d8d8');
 	$('.div_subway_bottom').css({
 		'pointer-events' : 'none',
@@ -16,6 +17,7 @@ $(document).ready(function() {
 	});
 	
 	
+	// 지하철역 검색
     $(".input_subway").autocomplete({
         source: function(request, response){
         	var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
@@ -48,7 +50,9 @@ $(document).ready(function() {
         }
 
     });
-    
+	
+	
+	// 아파트 세부사항
     $('.btn_cpx_count').click(function(){
     	var front = $('.select_cpx_count').val();
     	var back = $('.input_cpx_count').val();
@@ -57,7 +61,10 @@ $(document).ready(function() {
     		alert('20동 이하까지만 가능');
     		$('.input_cpx_count').val('').focus();
     		return false;
-    	}
+		}
+		
+		$('.li_info2').show();
+		$('.li_info2').animate({opacity: '1'}, 550);
     	
     	$('.div_detail_left').css('background-color', '#d8d8d8');
     	$('.div_apart_info_detail').css('border', '1px solid #dfdfdf');
@@ -105,7 +112,8 @@ $(document).ready(function() {
 			'height' : '100%'
 		});
     	$('.div_apart_dong').css({
-    		'height' : '20px'
+			'height' : '20px',
+			'cursor' : 'pointer'
     	});
     	$('.ul_dong_detail').css({
     		'box-sizing' : 'border-box',
@@ -122,8 +130,7 @@ $(document).ready(function() {
     		'padding-top' : '5px'
     	});
     	$('.li_dong_detail0').css({
-    		'font-size' : '12pt',
-    		'color' : 'blue'
+    		'font-size' : '12pt'
     	});
     	$('.ul_dong_detail>li>div').css({
     		'height' : '100%',
@@ -152,22 +159,40 @@ $(document).ready(function() {
     	});
     	$('#detail_right1').css('display', 'block');
     	$('#detail_left1').css({
-			'background-color' : 'yellow',
-			'cursor' : 'pointer'
+			'background-color' : 'black', 
+			'color' : 'white'
 		});
     	
     	
 	});
 	
-    
+
+	// datepicker
+	$('#date').bootstrapMaterialDatePicker({
+		time: false,
+		clearButton: true,
+		minDate : new Date()
+	});
+
+	// 지하철 체크
+	$('.chk_subway').change(function(){
+		if($('.chk_subway').prop('checked') == false) {
+			$('.div_subway_bottom>input').prop('disabled', 'disabled');
+		}else{
+			$('.div_subway_bottom>input').prop('disabled', false);
+		}
+	});
 	
 });
 
 
+
+
+// 유효성 검사 . SUBMIT
 function insert(){
 	if($('.input_cpx_apartname').val() == ''){
 			alert('insert aptname!');
-			$(this).focus();
+			$('.input_cpx_apartname').focus();
 			return false;
 		}
 
@@ -180,7 +205,7 @@ function insert(){
 	$('.ul_dong_detail li>div>input').each(function(){	
 		count++;
 		if ($(this).val() == ''){
-			alert('insert detail!');
+			alert(($(this).attr('name').split('[')[1].split(']')[0]*1+1) +'동 세부사항 미입력!');
 			$(this).focus();
 			return false;
 		}
@@ -190,9 +215,12 @@ function insert(){
 		return false;
 	}
 
+	
 	//return ture;
 }
 
+
+// Image API
 UPLOADCARE_LOCALE = "ko";
 UPLOADCARE_TABS = "file url";
 UPLOADCARE_PUBLIC_KEY = "c45d0fc9bcc9538a677e";
@@ -231,14 +259,22 @@ function insert_img(info, id) {
 	
 }
 
+//////
+
 
 function select_apart(num) {
-	$('.div_apart_dong').css('background-color', 'transparent');
+	$('.div_apart_dong').css({
+		'background-color': 'transparent', 
+		'color': 'black'
+	});
 	$('.div_dong_detail').css('display', 'none');
 	
 	var id1 = '#detail_left' + num;
 	var id2 = '#detail_right' + num;
-	$(id1).css('background-color', 'yellow');
+	$(id1).css({
+		'background-color' : 'black', 
+		'color' : 'white'
+	});
 	$(id2).css('display', 'block');
 }
 
@@ -258,4 +294,36 @@ function removeChar(e) {
 		return;
 	else
 		e.target.value = e.target.value.replace(/[^0-9]/g, "");
+}
+
+// wordCounting
+function chkword(obj, maxByte) {
+   var strValue = obj.value;
+   var strLen = strValue.length;
+   var totalByte = 0;
+   var len = 0;
+   var oneChar = "";
+   var str2 = "";
+
+   for (var i = 0; i < strLen; i++) {
+       oneChar = strValue.charAt(i);
+       if (escape(oneChar).length > 4) {
+           totalByte += 3;
+       } else {
+           totalByte++;
+       }
+       $('#counter').html(totalByte + '/1000');
+       // 입력한 문자 길이보다 넘치면 잘라내기 위해 저장
+       if (totalByte <= maxByte) {
+           len = i + 1;
+       }
+   }
+
+   // 넘어가는 글자는 자른다.
+   if (totalByte > maxByte) {
+       alert(maxByte + "자를 초과 입력 할 수 없습니다.");
+       str2 = strValue.substr(0, len);
+       obj.value = str2;
+       chkword(obj, 4000);
+   }
 }
