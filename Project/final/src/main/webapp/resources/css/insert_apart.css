@@ -23,8 +23,8 @@
 }
 
 input {
-	border: 1px solid #b3b3b3;
-	border-radius: 4px;
+    border: none;
+    border-bottom: 1px solid black;
 }
 
 li{
@@ -33,7 +33,7 @@ li{
 .ul_insert>li {
 	width: 100%;
 	text-align: center;
-	padding: 20px 5px;
+	padding: 20px 40px;
 	border-bottom: 1px solid #dfdfdf;
 	box-sizing: border-box;
 }
@@ -41,13 +41,18 @@ li{
 .ul_insert li div {
 	display: inline-block;
 	box-sizing: border-box;
-	height: 100%;
-	text-align: center;
 }
 
 .li_map {
 	height: 500px;
 	padding: 30px 0px;
+}
+
+#div_map{
+	width: 100%;
+	height: 100%;
+	display: block;
+	text-align: left;
 }
 
 .li_info1 {
@@ -64,7 +69,9 @@ li{
 }
 
 .div_aptname_span {
-	width: 31%;
+    width: 100%;
+    height: 30%;
+    text-align: left;
 }
 
 .span_info {
@@ -72,11 +79,13 @@ li{
 }
 
 .div_aptname_input {
-	width: 67%;
+    width: 100%;
+    text-align: left;
+    height: 70%;
 }
 
 .input_cpx_apartname {
-	width: 73%;
+	width: 61%;
 }
 
 .div_cpx_count {
@@ -91,18 +100,21 @@ li{
 }
 
 .div_cpx_count_span {
-	width: 31%;
-	float: left;
+	width: 100%;
+    height: 50%;
+    text-align: left;
 }
 
 .div_cpx_input {
-	width: 67%;
+    width: 100%;
+    height: 50%;
+    text-align: left;
 }
 
 .select_cpx_count {
-	border: 1px solid #b3b3b3;
+	border: none;
+	border-bottom: 1px solid black;
 	width: 30%;
-	border-radius: 4px;
 }
 
 .input_cpx_count {
@@ -143,9 +155,13 @@ li{
 .div_apart_info {
 	width: 100%;
 }
+.div_apart_info div{
+	height: 100%;
+}
 
 .div_cpx_info {
 	width: 49%;
+    position: relative;
 }
 
 .div_apart_info_detail {
@@ -153,21 +169,21 @@ li{
 }
 
 .div_cpx_info_span {
-	width: 31%;
-	text-align: left;
-	float: left;
+    width: 100%;
+    text-align: left;
+    height: 15%;
 }
 
 .div_cpx_info_text {
-	width: 67%;
+    width: 100%;
+    height: 85%;
 }
 
 .textarea_cpx_info {
 	width: 95%;
 	height: 100%;
 	resize: none;
-	border: 1px solid #b3b3b3;
-	border-radius: 4px;
+	border: 1px solid black;
 }
 
 .li_info3 {
@@ -180,14 +196,18 @@ li{
 
 .div_apart_pdate {
 	width: 49%;
+    height: 100%;
 }
 
 .div_apart_pdate_span {
-	width: 31%;
+    width: 100%;
+    text-align: left;
+    height: 15%;
 }
 
 .div_apart_pdate_cal {
-	width: 67%;
+    width: 100%;
+    height: 85%;
 }
 
 .div_apart_subway {
@@ -195,12 +215,14 @@ li{
 }
 
 .div_apart_subway_span {
-	width: 31%;
-	text-align: left;
+	width: 100%;
+    text-align: left;
+    height: 15%;
 }
 
 .div_apart_subway_detail {
-	width: 67%;
+    width: 100%;
+    height: 85%;
 }
 
 .ul_subway_detail {
@@ -226,11 +248,22 @@ li{
 	height: 90%;
 }
 .div_subway_bottom{
-	text-align: left !important;
+	position: relative;
+}
+.div_subway_mask{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 75%;
+	height: 100%;
+	background-color: rgba(208, 208, 208, 0.7);
 }
 
 input.input_subway.ui-autocomplete-input, input.input_foot {
 	width: 30%;
+}
+input.input_subway.ui-autocomplete-input:disabled, input.input_foot:disabled{
+	background-color: transparent;
 }
 
 .ul_insert li>div>div:nth-child(2) {
@@ -290,12 +323,12 @@ li.li_info2{
 
 span#counter {
     position: absolute;
-    background: rgba(26,171,138,0.5);
+    background-color: #e8e8e8;
     border-radius: 0.5em;
     padding: 0 .5em 0 .5em;
     font-size: 0.75em;
     bottom: 5%;
-    left: 75%;
+    right: 8%;
 }
 
 .div_cpx_info_text {

@@ -1,5 +1,9 @@
 package com.naver.house.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +32,13 @@ public class ApartmentController {
 		return new ModelAndView("apart/test");
 	}
 	
-	@RequestMapping(value = "/apart/insertform.com")
+	@RequestMapping(value = "/apart_insertform.com")
 	public ModelAndView insertform_apart() {
 		
 		return new ModelAndView("template", "viewName", "apart/insert_aptcomplex.jsp");
 	}
 	
-	@RequestMapping(value = "/apart/insert.com")
+	@RequestMapping(value = "/apart_insert.com")
 	public ModelAndView insert_apart(AptComplexBean aptComplexBean, 
 			ApartListBean apartListBean, 
 			@RequestParam(value="chk_subway", defaultValue="false") boolean chk_subway) throws Exception {
@@ -60,7 +64,8 @@ public class ApartmentController {
 		System.out.println("근처역 : "+aptComplexBean.getComplex_station());
 		System.out.println("소요시간 : "+aptComplexBean.getComplex_foot());
 		
-		int seq = 1;
+		List<ApartmentBean> apartmentBeanList = new ArrayList<ApartmentBean>();
+		int seq = new Random().nextInt(100);
 		for (ApartmentBean apart : apartListBean.getApartBeanList()) {
 			for (int i = 1; i <= apart.getApart_floor(); i++) {
 				for (int j = 1; j < 5; j++) {
@@ -84,26 +89,27 @@ public class ApartmentController {
 					System.out.println("방 : "+apart.getApart_room());
 					System.out.println("화장실 : "+apart.getApart_toilet());
 					System.out.println("인테리어사진 : "+apart.getApart_interior());
+					
+					apartmentBeanList.add(apart);
 				}
 			}
 			
-			
 		}
 		
-		/*Map<String, Object> apartMap = new HashMap<String, Object>();
+		
+		Map<String, Object> apartMap = new HashMap<String, Object>();
 		
 		apartMap.put("aptComplexBean", aptComplexBean);
-		apartMap.put("apartListBean", apartListBean);
+		apartMap.put("apartmentListBean", apartmentBeanList);
 		
-		apartmentService.insert_apart(apartMap);*/
+		apartmentService.insert_apart(apartMap);
 		
 		
-		//return new ModelAndView("template", "viewName", "apart/list");
-		return new ModelAndView("redirect:/apart/insertform.com");
-		//return new ModelAndView("redirect:/apart/list.com");
+		return new ModelAndView("redirect:/apart_insertform.com");
+		//return new ModelAndView("redirect:/apart_list.com");
 	}
 	
-	@RequestMapping(value = "/apart/detail.com")
+	@RequestMapping(value = "/apart_detail.com")
 	public ModelAndView detail_apart(@RequestParam("complex_id") int complex_id, 
 			@RequestParam(value = "page", defaultValue = "1") int page) throws Exception {
 		

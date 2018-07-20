@@ -16,11 +16,11 @@ public class ApartmentDAO {
 	private SqlSessionTemplate sqlsession;
 	
 	public void insert_apartment(ApartmentBean apartmentBean) throws Exception {
-		
+		sqlsession.insert("apart.insert",apartmentBean);
 	}
 	
 	public void insert_aptComplex(AptComplexBean aptComplexBean) throws Exception {
-		
+		sqlsession.insert("complex.insert",aptComplexBean);
 	}
 	
 	public AptComplexBean detail_aptComplex(int complex_id) throws Exception {

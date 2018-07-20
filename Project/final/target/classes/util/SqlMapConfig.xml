@@ -10,7 +10,8 @@
 	</settings>
 
 	<typeAliases>
-		       
+		<typeAlias type="com.naver.house.bean.ApartmentBean" alias="apart"/>
+		<typeAlias type="com.naver.house.bean.AptComplexBean" alias="complex"/>
 	</typeAliases>
 	
 	<!-- root-context.xml에서 멥퍼의 위치를 정해줌 -->

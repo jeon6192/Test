@@ -6,41 +6,42 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Insert title here</title>
 		
-		<link href="../resources/css/insert_apart.css" rel="stylesheet" type="text/css">
-		<!-- DatePicker -->
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<!-- Daum Map -->
+		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4d8e47b00c2f9c5701d6a158cfe8df08&libraries=services,clusterer,drawing"></script>
+		
+		
+		<script src="./resources/js/insert_apart.js"></script>
+		<link href="./resources/css/insert_apart.css" rel="stylesheet" type="text/css">
 		
 		<!-- Image API -->
 		<script charset="utf-8" src="//ucarecdn.com/libs/widget/3.3.0/uploadcare.full.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-		<script src="../resources/js/insert_apart.js"></script>
 		
 		
-
-		<link rel="stylesheet" href="../resources/css/datepicker.css" />
+		
+		<!-- DatePicker -->
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="./resources/css/datepicker.css" />
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
-
 		<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
-		<script type="text/javascript" src="../resources/js/datepicker.js"></script>
+		<script type="text/javascript" src="./resources/js/datepicker.js"></script>
+		
 		
 	</head>
 	
 	<body>
 	
-		<form action="../apart/insert.com" method="post" id="insert_apt" onsubmit="return insert();">
+		<form action="./apart_insert.com" method="post" id="insert_apt" onsubmit="return insert();">	
 		<ul class="ul_insert">
 		
 			<li class="li_map">
-			
-				<div class="div_map_area">
-					<div class="div_map">
-						<h2>~지도~</h2>
-					</div>
+				<div id="div_map">
 				</div>
-				
+				<input type="hidden" name="complex_address" id="complex_address" value="">
+				<input type="hidden" name="complex_lat" id="complex_lat" value="">
+				<input type="hidden" name="complex_lng" id="complex_lng" value="">
 			</li>
-			
 			<li class="li_info1">
 			
 				<div class="div_apart_info1">
@@ -87,7 +88,6 @@
 					</div>
 				</div>
 				
-				
 				<div class="div_cpx_info">
 					<div class="div_cpx_info_span">
 						<span class="span_info">
@@ -99,7 +99,6 @@
 						<span id="counter">0/1000</span>
 					</div>
 				</div>
-					
 				
 			</li>
 			
@@ -126,6 +125,8 @@
 					</div>
 				</div>
 				
+				
+				
 				<div class="div_apart_subway">
 					<div class="div_apart_subway_span">
 						<span class="span_info">
@@ -134,6 +135,7 @@
 					</div>
 					<div class="div_apart_subway_detail">
 						<ul class="ul_subway_detail">
+							 
 							<li class="li_subway_top">
 								<div class="div_subway_top">
 									<input type="checkbox" class="chk_subway" name="chk_subway">
@@ -141,11 +143,15 @@
 							</li>
 							<li class="li_subway_bottom">
 								<div class="div_subway_bottom">
+								
 									<input class="input_subway" name="complex_station">
 									<input type="text" class="input_foot" onkeydown="return onlyNumber(event)" onkeyup="removeChar(event)" name="complex_foot">
 									&nbsp; <b>분</b>
+								 
+									<div class="div_subway_mask"></div>
 								</div>
 							</li>
+							
 						</ul>
 					</div>
 				</div>
@@ -156,7 +162,6 @@
 					<button type="submit" class="btn_submit">등록</button>
 				</div>
 			</li>
-			
 			
 		</ul>
 		</form>

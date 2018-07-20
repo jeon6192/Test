@@ -22,11 +22,11 @@ public class ApartmentServiceImpl implements ApartmentService {
 	@Override
 	public void insert_apart(Map<String, Object> apartMap) throws Exception {
 		AptComplexBean aptComplexBean = (AptComplexBean) apartMap.get("aptComplexBean");
-		ApartListBean apartListBean = (ApartListBean) apartMap.get("apartListBean");
+		ArrayList<ApartmentBean> apartmentBeanList = (ArrayList<ApartmentBean>) apartMap.get("apartmentListBean");
 		
 		apartmentDAO.insert_aptComplex(aptComplexBean);
 		
-		for (ApartmentBean apartmentBean : apartListBean.getApartBeanList()) {
+		for (ApartmentBean apartmentBean : apartmentBeanList) {
 			apartmentDAO.insert_apartment(apartmentBean);
 		}
 		

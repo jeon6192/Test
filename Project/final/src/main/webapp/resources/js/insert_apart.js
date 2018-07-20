@@ -1,28 +1,32 @@
 $(document).ready(function() {
 	
 	// 역세권
-	$('.div_subway_bottom input').css('background-color', '#d8d8d8');
 	$('.div_subway_bottom').css({
-		'pointer-events' : 'none',
-		'padding-top' : '10px'
+		'pointer-events' : 'none'
 	});
+	/*
 	$('.chk_subway').change(function(){
+		$('.div_subway_bottom').css('pointer-events', 'unset').toggle();
+		$('.div_subway_mask').css('display', 'none !important').toggle();
+		
 		if ($('.chk_subway').prop('checked') == false) {
 			$('.div_subway_bottom').css('pointer-events', 'none');
-			$('.div_subway_bottom input').css('background-color', '#d8d8d8');
+			$('.div_subway_mask').css('display', 'inline-block');
 		} else {
+			console.log('바발바');
 			$('.div_subway_bottom').css('pointer-events', 'unset');
-			$('.div_subway_bottom input').css('background-color', 'transparent');
+			$('.div_subway_mask').css('display', 'none !important');
 		}
+		
 	});
-	
+	*/
 	
 	// 지하철역 검색
     $(".input_subway").autocomplete({
         source: function(request, response){
         	var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
         	$.ajax({
-				url : '../resources/json/subway.json',
+				url : './resources/json/subway.json',
 				dataType : "json",
 				data : request.term,
 				success : function(data) {
@@ -177,24 +181,85 @@ $(document).ready(function() {
 	// 지하철 체크
 	$('.chk_subway').change(function(){
 		if($('.chk_subway').prop('checked') == false) {
+			$('input.input_subway.ui-autocomplete-input, input.input_foot').val('');
 			$('.div_subway_bottom>input').prop('disabled', 'disabled');
+			$('.div_subway_bottom').css('pointer-events', 'none');
+			$('.div_subway_mask').show();
 		}else{
 			$('.div_subway_bottom>input').prop('disabled', false);
+			$('.div_subway_bottom').css('pointer-events', 'unset');
+			$('.div_subway_mask').hide();
 		}
 	});
+
+
+
+	// Daum Map 
+	var container = document.getElementById('div_map'); //지도를 담을 영역의 DOM 레퍼런스
+	var options = { //지도를 생성할 때 필요한 기본 옵션
+		center: new daum.maps.LatLng(37.57011423284105, 126.98877100169027), //지도의 중심좌표.
+		level: 5 //지도의 레벨(확대, 축소 정도)
+	};
+
+
+	var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+
+	var marker = new daum.maps.Marker({ 
+	});
+
+	daum.maps.event.addListener(map, 'click', function(mouseEvent) {        
+    
+		// 클릭한 위도, 경도 정보를 가져옵니다 
+		var latlng = mouseEvent.latLng; 
+		
+		// 마커 위치를 클릭한 위치로 옮깁니다
+		marker.setPosition(latlng);
+
+		marker.setMap(map);
+
+		var latlng = mouseEvent.latLng;
+		console.log('lat : '+latlng.getLat());
+		console.log('lng : '+latlng.getLng());
+
+		$('#complex_lat').val(latlng.getLat());
+		$('#complex_lng').val(latlng.getLng());
+
+		searchDetailAddrFromCoords(mouseEvent.latLng, function(result, status) {
+			console.log(result[0].address.address_name);
+			$('#complex_address').val(result[0].address.address_name);
+		});
+
+
+	});
+
+
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new daum.maps.services.Geocoder();
+
+	function searchDetailAddrFromCoords(coords, callback) {
+		// 좌표로 법정동 상세 주소 정보를 요청합니다
+		geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+	}
+
+
 	
-});
+
+});	// document.ready
 
 
 
 
 // 유효성 검사 . SUBMIT
 function insert(){
+	if($('#complex_address').val() == ''){
+		alert('insert address!');
+		return false;
+	}
 	if($('.input_cpx_apartname').val() == ''){
-			alert('insert aptname!');
-			$('.input_cpx_apartname').focus();
-			return false;
-		}
+		alert('insert aptname!');
+		$('.input_cpx_apartname').focus();
+		return false;
+	}
 
 	if(typeof $('.div_dong_detail').val() === 'undefined'){
 		alert('add!');
@@ -252,8 +317,8 @@ function insert_img(info, id) {
 	for(var i=0;i<length;i++){
 		url[i]=info.cdnUrl+"nth/"+i+"/";
 		$('#showImage'+id).append('<img src="'+url[i]+'-/resize/x100/"/>');
-		url[i]+="-/resize/500x/ ";
 		var val=$('#img_hidden'+id).attr('value');
+		url[i] += " ";
 		$('#img_hidden'+id).attr('value', val+url[i]);
 	}
 	
@@ -327,3 +392,6 @@ function chkword(obj, maxByte) {
        chkword(obj, 4000);
    }
 }
+
+
+
